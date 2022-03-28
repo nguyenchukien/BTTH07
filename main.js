@@ -1,28 +1,37 @@
 //tạo object Validator
 function Validator(options) {
-  // var formElement = document.getElementById(options.form);
   var formElement = document.querySelector(options.form);
 
+  function validate(inputElement, rule) {
+    var errorElement = inputElement.parentElement.querySelector(
+      options.errorSelector
+    );
+    var errorMessage = rule.test(inputElement.value);
+    if (errorMessage) {
+      errorElement.innerText = errorMessage;
+      inputElement.parentElement.classList.add("invalid");
+    } else {
+      errorElement.innerText = "";
+      inputElement.parentElement.classList.remove("invalid");
+    }
+  }
   if (formElement) {
     // Lặp qua từng rules và validate
     options.rules.forEach(function (rule) {
       var inputElement = formElement.querySelector(rule.selector);
-      var errorElement =
-        inputElement.parentElement.querySelector(".form-message");
 
       if (inputElement) {
+        // Xử lí trường hợp blur ra khỏi input
         inputElement.onblur = function () {
-          var errorMessage = rule.test(inputElement.value);
-          console.log(errorMessage);
-          if (errorMessage) {
-            //em bảo nó đang bị lỗi ở dòng này nè a
-            //nó đang bị k innerText ra cái dòng kia ý
-            //ờ nhể dị dị
+          validate(inputElement, rule);
+          // Xử lí
+          inputElement.oninput = function () {
+            var errorElement = inputElement.parentElement.querySelector(
+              options.errorSelector
+            );
             errorElement.innerText = errorMessage;
-            // inputElement.parentElement.classList.add("invalid");
-          } else {
-            errorElement.innerText = "";
-          }
+            inputElement.parentElement.classList.add("invalid");
+          };
         };
       }
     });
@@ -56,6 +65,9 @@ Validator.isPassword = function (selector) {
 Validator.isEmail = function (selector) {
   return {
     selector: selector,
-    test: function () {},
+    test: function (value) {
+      var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      return regex.test(value) ? undefined : "Dòng này phải là email";
+    },
   };
 };

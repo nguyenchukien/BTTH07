@@ -25,36 +25,52 @@
         <div class="form-group">
           <label for="name" class="form-label">Name:</label>
           <input id="name" type="text" />
+          <span class="form-message"></span>
+
         </div>
         <div class="form-group">
           <label for="address" class="form-label">Address:</label>
           <input id="address" type="text" />
+          <span class="form-message"></span>
+
         </div>
         <div class="form-group">
           <label for="country" class="form-label">Country:</label>
           <input id="country" type="text" />
+          <span class="form-message"></span>
+
         </div>
         <div class="form-group">
           <label for="code" class="form-label">ZIP code:</label>
           <input id="code" type="text" />
+          <span class="form-message"></span>
+
         </div>
         <div class="form-group">
           <label for="email" class="form-label">Email:</label>
           <input id="email" type="email" />
+          <span class="form-message"></span>
+
         </div>
         <div class="form-group">
           <label for="sex" class="form-label">Sex:</label>
           <input name="sex" type="radio" /> Male
           <input name="sex" type="radio" /> Female
+          <span class="form-message"></span>
+
         </div>
         <div class="form-group">
           <label for="language" class="form-label">Language:</label>
           <input id="language" name="language" type="checkbox" /> English
           <input id="language" name="language" type="checkbox" /> Non English
+          <span class="form-message"></span>
+
         </div>
         <div class="form-group">
           <label for="about" class="form-label">About:</label>
           <input id="about" type="text" />
+          <span class="form-message"></span>
+
         </div>
         <div id="submit"><button>Submit</button></div>
       </div>
@@ -64,10 +80,16 @@
       console.log(Validator);
       Validator({
         form: "#form-1",
+        errorSelector: '.form-message',
         rules: [
           Validator.isRequired("#user"),
           Validator.isRequired("#password"),
           Validator.minLength("#password", 6),
+          Validator.isRequired("#name"),
+          Validator.isRequired("#code"),
+          Validator.isEmail("#email"),
+          Validator.isRequired("#Sex"),
+          Validator.isRequired("#Language"),
         ],
       });
     </script>

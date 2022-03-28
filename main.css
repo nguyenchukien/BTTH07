@@ -4,13 +4,16 @@ body {
 }
 .container {
   width: 30rem;
-  padding: 10rem;
+  margin: 10rem;
   border: 0.2px solid;
+}
+.heading {
+  text-align: center;
 }
 .form-group {
   padding: 15px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 input {
   height: 1.5rem;
@@ -21,4 +24,7 @@ h1 {
 }
 label {
   width: 10rem;
+}
+.form-message {
+  font-size: 1rem;
 }
